@@ -12,20 +12,19 @@ use_xshelper;
 cc_warnings;
 cc_src_paths qw(xs);
 
-$ENV{INCLUDES} = '/usr/local/groonga/include/groonga';
-if ($ENV{INCLUDES}) {
-    cc_include_paths split/\s+/, $ENV{INCLUDES};
-}
-$ENV{LIBS} = '-L/usr/local/groonga/lib';
-if ($ENV{LIBS}) {
-    cc_libs $ENV{LIBS};
-}
-
-cc_libs 'groonga';
+system("pkg-config --exists groonga")==0
+	or do {
+		print STDERR "missing groonga library\n";
+		exit;
+	};
 
 tests 't/*.t';
 author_tests 'xt';
 
 build_requires 'Test::More';
 auto_set_repository;
-WriteAll;
+makemaker_args(
+    CCFLAGS => `pkg-config --cflags groonga`,
+    LIBS    => `pkg-config --libs groonga`,
+);
+WriteAll();
