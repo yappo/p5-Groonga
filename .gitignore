@@ -9,3 +9,9 @@ Makefile.old
 nytprof.out
 MANIFEST.bak
 *.sw[po]
+
+*.bs
+ppport.h
+xs/perl-groonga-patricia_trie.c
+xs/perl-groonga.c
+xshelper.h
