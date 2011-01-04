@@ -21,6 +21,20 @@ Groonga -
 
 Groonga is
 
+=head1 METHODS
+
+=over 4
+
+=item my $version = Groonga->get_version() : Str
+
+Get the version number of groonga library.
+
+=item my $package = Groonga->get_package() : Str
+
+Get the package name of groonga library.
+
+=back
+
 =head1 AUTHOR
 
 Kazuhiro Osawa E<lt>yappo {at} shibuya {dot} plE<gt>
