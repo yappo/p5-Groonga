@@ -163,6 +163,79 @@ delete(PerlGroonga_PatriciaTrie *self, SV *key)
         RETVAL
 
 void
+scan(PerlGroonga_PatriciaTrie *self, SV *text, CV *callback)
+    CODE:
+        const char *text_c, *search_text;
+        STRLEN text_size;
+        long search_text_length;
+        grn_pat_scan_hit hits[1024];
+        char *termbuf;
+
+        if (text == &PL_sv_undef) {
+            croak("text invalid");
+        } else {
+            text_c = SvPV(text, text_size);
+        }
+        search_text        = text_c;
+        search_text_length = text_size;
+
+        Newxz( termbuf, text_size, char * );
+
+        while (search_text_length > 0) {
+            const char *rest;
+            int i, n_hits;
+            unsigned int previous_offset = 0;
+            grn_pat *pat;
+            pat = self->pat;
+
+            n_hits = grn_pat_scan(self->ctx, self->pat, search_text, search_text_length, hits, sizeof(hits) / sizeof(*hits), &rest);
+
+            for (i = 0; i < n_hits; i++) {
+                SV *record, *term;
+                int term_size;
+
+                if (hits[i].offset < previous_offset)
+                    continue;
+
+                // slice term in search_text
+                record = newSVpv(text_c + hits[i].offset, hits[i].length);
+
+                // get term by record_id
+                term_size = grn_pat_get_key(self->ctx, self->pat, hits[i].id, termbuf, text_size);
+                if (term_size == 0)
+                    croak("grn_id=%d is not found", hits[i].id);
+                if (term_size > text_size)
+                    croak("buffer over");
+                termbuf[term_size] = '\0';
+                term = newSVpv(termbuf, term_size);
+
+                // call to callback
+                {
+                    dSP;
+                    ENTER;
+                    SAVETMPS;
+                    PUSHMARK(SP);
+                    XPUSHs(record);
+                    XPUSHs(term);
+                    mXPUSHi((int) hits[i].offset);
+                    mXPUSHi((int) hits[i].length);
+                    PUTBACK;
+
+                    call_sv( (SV*)callback, G_SCALAR );
+
+                    SPAGAIN;
+                    PUTBACK;
+                    FREETMPS;
+                    LEAVE;
+                }
+
+                previous_offset = hits[i].offset;
+            }
+            search_text_length -= rest - search_text;
+            search_text = rest;
+        }
+
+void
 DESTROY(PerlGroonga_PatriciaTrie *self)
     CODE:
         if (self->pat != NULL)

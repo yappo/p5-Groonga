@@ -34,6 +34,20 @@ Groonga::PatriciaTrie - Groonga patricia operator
       die 'remove error';
   }
 
+useing scan method
+
+  my $path = '/for/bar/baz.db';
+  my $pat = Groonga::PatriciaTrie->new;
+  $pat->create($path, $key_size, $value_size, GRN_OBJ_KEY_VAR_SIZE) or die 'Groonga::PatriciaTrie create error';
+
+  $pat->add('yappo', 'hello');
+  $pat->add('nekokak', 'good');
+
+  my $text = 'nekokak with yappon';
+  $pat->scan($text, sub {
+      my($record, $dict_term, $offset, $length) = @_;
+  };
+
 =head1 DESCRIPTION
 
 Groonga is 
@@ -73,6 +87,24 @@ Retrieves a key from the Groonga patricia file.
 =item $pat->delete($key) : grn_rc
 
 Delete a key.
+
+=item $pat->scan($text, $callback) : void
+
+Retrieves a $text from the Groonga patricia dict.
+moust set flags GRN_OBJ_KEY_VAR_SIZE the create method.
+
+  $pat->create($path, $key_size, $value_size, GRN_OBJ_KEY_VAR_SIZE) or die 'Groonga::PatriciaTrie create error';
+
+  $pat->add('yappo', 'hello');
+  $pat->add('nekokak', 'good');
+
+  my $text = 'nekokak with yappon';
+  $pat->scan($text, sub {
+      my($record, $dict_term, $offset, $length) = @_;
+      say "$record, $dict_term, $offset, $length";
+      # nekokak, nekokak, 0, 7
+      # yappo, yappo, 13, 5
+  };
 
 =back
 
