@@ -27,6 +27,9 @@ int
 create(PerlGroonga_PatriciaTrie *self, SV *path, unsigned int key_size=0x1000, unsigned int value_size=0x1000, unsigned int flags=0)
     CODE:
         const char *path_c = path==&PL_sv_undef ? NULL : SvPV_nolen(path);
+        if (self->pat != NULL) {
+            croak("Cannot create context. please close this context.");
+        }
         self->pat = grn_pat_create(self->ctx, path_c, key_size, value_size, flags);
         RETVAL = self->pat ? 1 : 0;
     OUTPUT:
@@ -36,6 +39,9 @@ int
 open(PerlGroonga_PatriciaTrie *self, SV *path)
     CODE:
         const char *path_c = path==&PL_sv_undef ? NULL : SvPV_nolen(path);
+        if (self->pat != NULL) {
+            croak("Cannot create context. please close this context.");
+        }
         self->pat = grn_pat_open(self->ctx, path_c);
         RETVAL = self->pat ? 1 : 0;
     OUTPUT:
