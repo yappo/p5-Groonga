@@ -4,6 +4,7 @@ use Test::More;
 use File::Temp qw( tempdir );
 use File::Spec ();
 use Groonga;
+use Groonga::PatriciaTrie;
 
 my $dir      = tempdir( CLEANUP => 1 );
 my $tmp_name = File::Spec->catfile($dir, 'test.db');
