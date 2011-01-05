@@ -50,6 +50,8 @@ close(PerlGroonga_PatriciaTrie *self)
             croak("Cannot close context");
         }
         rc = grn_pat_close(self->ctx, self->pat);
+        if (!rc)
+            self->pat = NULL;
         RETVAL = rc ? 0 : 1;
     OUTPUT:
         RETVAL
