@@ -7,8 +7,8 @@
 #include <groonga.h>
 
 typedef struct {
-  grn_obj *ctx;
-  grn_ctx         *grn_ctx;
+  grn_ctx         *ctx;
+  grn_obj         *table;
 } PerlGroonga_Table;
 
 typedef struct {
