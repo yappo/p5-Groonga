@@ -95,7 +95,7 @@ add(PerlGroonga_PatriciaTrie *self, SV *key, SV *value)
             value_c = SvPV(value, value_size);
         }
 
-        id = grn_pat_add(self->ctx, self->pat, key_c, key_size, &value_ptr, &added);
+        id = grn_pat_add(self->ctx, self->pat, key_c, key_size, (void **) &value_ptr, &added);
         memcpy(value_ptr, value_c, value_size +1); // XXX: I will think about '+1' later
 
         switch (GIMME_V) {
@@ -127,7 +127,7 @@ get(PerlGroonga_PatriciaTrie *self, SV *key)
             key_c = SvPV(key, key_size);
         }
 
-        id = grn_pat_get(self->ctx, self->pat, key_c, key_size, &value);
+        id = grn_pat_get(self->ctx, self->pat, key_c, key_size, (void **) &value);
 
         switch (GIMME_V) {
             case G_VOID:
