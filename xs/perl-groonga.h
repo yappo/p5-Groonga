@@ -12,7 +12,7 @@ typedef struct {
 } PerlGroonga_Table;
 
 typedef struct {
-  GRN_API grn_pat *ctx;
+  grn_pat *ctx;
   grn_ctx         *grn_ctx;
 } PerlGroonga_PatriciaTrie;
 
