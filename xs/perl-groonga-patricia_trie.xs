@@ -24,7 +24,7 @@ new(const char *class, int flags=0)
     OUTPUT: RETVAL
 
 int
-create(PerlGroonga_PatriciaTrie *self, SV *path, unsigned int key_size=0x1000, unsigned int value_size=0, unsigned int flags=0)
+create(PerlGroonga_PatriciaTrie *self, SV *path, unsigned int key_size=0x1000, unsigned int value_size=0x1000, unsigned int flags=0)
     CODE:
         const char *path_c = path==&PL_sv_undef ? NULL : SvPV_nolen(path);
         self->pat = grn_pat_create(self->ctx, path_c, key_size, value_size, flags);
