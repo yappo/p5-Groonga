@@ -100,7 +100,7 @@ moust set flags GRN_OBJ_KEY_VAR_SIZE the create method.
 
   my $text = 'nekokak with yappon';
   $pat->scan($text, sub {
-      my($record, $dict_term, $offset, $length) = @_;
+      my($record, $dict_term, $offset, $length, $record_id) = @_;
       say "$record, $dict_term, $offset, $length";
       # nekokak, nekokak, 0, 7
       # yappo, yappo, 13, 5

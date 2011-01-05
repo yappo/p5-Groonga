@@ -219,6 +219,7 @@ scan(PerlGroonga_PatriciaTrie *self, SV *text, CV *callback)
                     XPUSHs(term);
                     mXPUSHi((int) hits[i].offset);
                     mXPUSHi((int) hits[i].length);
+                    mXPUSHi((int) hits[i].id);
                     PUTBACK;
 
                     call_sv( (SV*)callback, G_SCALAR );

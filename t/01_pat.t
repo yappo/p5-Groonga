@@ -67,8 +67,8 @@ $pat->add('neko', 'kak');
 
 my $text = 'nekokak with yappon';
 my @results = (
-    ['nekokak', 'nekokak',  0, 7],
-    ['yappo',     'yappo', 13, 5],
+    ['nekokak', 'nekokak',  0, 7, 2],
+    ['yappo',     'yappo', 13, 5, 1],
 );
 my $i = 0;
 $pat->scan($text, sub {
@@ -76,6 +76,7 @@ $pat->scan($text, sub {
     is($_[1], $results[$i]->[1], 'term');
     is($_[2], $results[$i]->[2], 'offset');
     is($_[3], $results[$i]->[3], 'length');
+    is($_[4], $results[$i]->[4], 'record_id');
     $i++;
 });
 
