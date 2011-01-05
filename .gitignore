@@ -11,6 +11,7 @@ MANIFEST.bak
 *.sw[po]
 
 *.bs
+*.o
 ppport.h
 xs/perl-groonga-patricia_trie.c
 xs/perl-groonga.c
