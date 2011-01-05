@@ -96,7 +96,7 @@ add(PerlGroonga_PatriciaTrie *self, SV *key, SV *value)
         }
 
         id = grn_pat_add(self->ctx, self->pat, key_c, key_size, &value_ptr, &added);
-        memcpy(value_ptr, value_c, value_size);
+        memcpy(value_ptr, value_c, value_size +1); // XXX: I will think about '+1' later
 
         switch (GIMME_V) {
             case G_VOID:
