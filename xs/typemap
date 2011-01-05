@@ -2,8 +2,8 @@ TYPEMAP
 
 PerlGroonga_DB *  T_PTROBJ_MG
 grn_obj_flags             T_IV
-GRN_API grn_rc            T_IV
-GRN_API grn_id            T_IV
+grn_rc            T_IV
+grn_id            T_IV
 PerlGroonga_Table*        T_PERLGROONGA_TABLE
 
 grn_rc            T_IV
