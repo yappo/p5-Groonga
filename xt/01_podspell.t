@@ -8,3 +8,6 @@ __DATA__
 Kazuhiro Osawa
 yappo {at} shibuya {dot} pl
 Groonga
+groonga
+patricia
+Str
