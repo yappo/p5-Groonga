@@ -1,9 +1,9 @@
 TYPEMAP
 
 PerlGroonga_DB *  T_PTROBJ_MG
+PerlGroonga_PatriciaTrie* T_PTROBJ_MG
 
 grn_rc            T_IV
-PerlGroonga_PatriciaTrie* T_PERLGROONGA_PATRICIATRIE
 
 
 INPUT
@@ -11,42 +11,4 @@ INPUT
 T_PTROBJ_MG
     $var = ($type)xs_object_magic_get_struct_rv_pretty(aTHX_ $arg, \"$var\");
 
-T_PERLGROONGA_PATRICIATRIE
-    MAGIC *mg;
-    $var = NULL;
-    if (sv_isobject($arg)) {
-        mg = PerlGroonga_PatriciaTrie_mg_find(aTHX_ SvRV($arg), &PerlGroonga_PatriciaTrie_vtbl);
-        if (mg) {
-            $var = (PerlGroonga_PatriciaTrie *) mg->mg_ptr;
-        }
-    }
-    if ($var == NULL)
-        croak(\"Invalid Groonga::PatriciaTrie object (perhaps you've already freed it?)\");
-
 OUTPUT
-
-T_PERLGROONGA_PATRICIATRIE
-    if (!$var)          /* if null */
-        SvOK_off($arg); /* then return as undef instead of reaf to undef */
-    else {
-        /* setup $arg as a ref to a blessed hash hv */
-        MAGIC *mg;
-        HV *hv = newHV();
-        const char *classname = \"Groonga::PatriciaTrie\";
-        /* take (sub)class name to use from class if appropriate */
-        if (SvMAGICAL(class))
-            mg_get(class);
-
-        if (SvOK( class ) && sv_derived_from(class, classname ) ) {
-            if(SvROK(class) && SvOBJECT(SvRV(class))) {
-                classname = sv_reftype(SvRV(class), TRUE);
-            } else {
-                classname = SvPV_nolen(class);
-            }
-        }
-
-        sv_setsv($arg, sv_2mortal(newRV_noinc((SV*)hv)));
-        (void)sv_bless($arg, gv_stashpv(classname, TRUE));
-        mg = sv_magicext((SV*)hv, NULL, PERL_MAGIC_ext, &PerlGroonga_PatriciaTrie_vtbl, (char*) $var, 0);
-        mg->mg_flags |= MGf_DUP;
-    }
