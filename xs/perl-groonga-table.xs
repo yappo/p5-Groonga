@@ -27,7 +27,6 @@ int
 create (PerlGroonga_Table *self, SV *name, SV *path = NULL, grn_obj_flags flags = 0);
     CODE:
         const char *path_c = (path==&PL_sv_undef || path==NULL) ? NULL : SvPV_nolen(path);
-        grn_ctx *grn_ctx;
         grn_obj *key_type = NULL, *value_type = NULL;
         const char *name_c;
         STRLEN name_size;
@@ -49,7 +48,7 @@ create (PerlGroonga_Table *self, SV *name, SV *path = NULL, grn_obj_flags flags 
         }
         warn("W: %s, %d, %s\n", name_c, name_size, path_c);
 
-        self->table = grn_table_create(grn_ctx, name_c, name_size, path_c, flags, key_type, value_type);
+        self->table = grn_table_create(self->ctx, name_c, name_size, path_c, flags, key_type, value_type);
         warn("W: %s\n", name_c);
         RETVAL = self->table ? 1 : 0;
     OUTPUT:
