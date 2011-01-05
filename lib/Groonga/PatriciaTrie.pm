@@ -12,20 +12,27 @@ Groonga::PatriciaTrie - Groonga patricia operator
 =head1 SYNOPSIS
 
   use Groonga;
+  use Groonga::Constants;
   use Groonga::PatriciaTrie;
 
   my $path = '/for/bar/baz.db';
   my $pat = Groonga::PatriciaTrie->new;
-  if ($pat->open($path)) {
+  if (! $pat->open($path)) {
       $pat->create($path) or die 'Groonga::PatriciaTrie create error';
   }
 
   $pat->add('yappo', 'hello');
   say $pat->get('yappo'); # hello
-  $pat->delete('yappo');
+  if ($pat->delete('yappo') != GRN_SUCCESS) {
+      die 'delete error';
+  }
 
-  $pat->close;
-  $pat->remove($path); # delete /for/bar/baz.db
+  if ($pat->close != GRN_SUCCESS) {
+      die 'close error';
+  }
+  if ($pat->remove($path) != GRN_SUCCESS) { # delete /for/bar/baz.db
+      die 'remove error';
+  }
 
 =head1 DESCRIPTION
 
@@ -47,11 +54,11 @@ Create Groonga patricia file.
 
 Open Groonga patricia file.
 
-=item $pat->close() : Bool
+=item $pat->close() : grn_rc
 
 Close Groonga patricia handle.
 
-=item $pat->remove($path) : Bool
+=item $pat->remove($path) : grn_rc
 
 Delete Groonga patricia file.
 
@@ -63,7 +70,7 @@ Add key/value to Groonga patricia file.
 
 Retrieves a key from the Groonga patricia file.
 
-=item $pat->delete($key) : Bool
+=item $pat->delete($key) : grn_rc
 
 Delete a key.
 

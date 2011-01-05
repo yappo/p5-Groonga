@@ -47,7 +47,7 @@ open(PerlGroonga_PatriciaTrie *self, SV *path)
     OUTPUT:
         RETVAL
 
-int
+grn_rc
 close(PerlGroonga_PatriciaTrie *self)
     CODE:
         grn_rc rc;
@@ -58,11 +58,11 @@ close(PerlGroonga_PatriciaTrie *self)
         rc = grn_pat_close(self->ctx, self->pat);
         if (!rc)
             self->pat = NULL;
-        RETVAL = rc ? 0 : 1;
+        RETVAL = rc;
     OUTPUT:
         RETVAL
 
-int
+grn_rc
 remove(PerlGroonga_PatriciaTrie *self, SV *path)
     CODE:
         const char *path_c = path==&PL_sv_undef ? NULL : SvPV_nolen(path);
@@ -71,7 +71,7 @@ remove(PerlGroonga_PatriciaTrie *self, SV *path)
             croak("Cannot create context. please close this context.");
         }
         rc = grn_pat_remove(self->ctx, path_c);
-        RETVAL = rc ? 0 : 1;
+        RETVAL = rc;
     OUTPUT:
         RETVAL
 
@@ -144,7 +144,7 @@ get(PerlGroonga_PatriciaTrie *self, SV *key)
                 break;
         }
 
-int
+grn_rc
 delete(PerlGroonga_PatriciaTrie *self, SV *key)
     CODE:
         const char *key_c;
@@ -158,7 +158,7 @@ delete(PerlGroonga_PatriciaTrie *self, SV *key)
         }
 
         rc = grn_pat_delete(self->ctx, self->pat, key_c, key_size, NULL);
-        RETVAL = rc ? 0 : 1;
+        RETVAL = rc;
     OUTPUT:
         RETVAL
 

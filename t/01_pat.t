@@ -4,6 +4,7 @@ use Test::More;
 use File::Temp qw( tempdir );
 use File::Spec ();
 use Groonga;
+use Groonga::Constants;
 use Groonga::PatriciaTrie;
 
 my $dir      = tempdir( CLEANUP => 1 );
@@ -40,7 +41,7 @@ do {
     like $@, qr/^Cannot create context. please close this context./;
 };
 
-ok($pat->close, 'close');
+is($pat->close, GRN_SUCCESS, 'close');
 ok(!$pat->create($tmp_name), 'not create');
 ok($pat->open($tmp_name), 'open');
 
@@ -62,8 +63,8 @@ is($value, 'bye');
 is($id, 2);
 is($value, 'san');
 
-ok($pat->delete('yappo'), 'delete yappo');
-ok(!$pat->delete('yappo'), 'not delete yappo');
+is($pat->delete('yappo'), GRN_SUCCESS, 'delete yappo');
+is($pat->delete('yappo'), GRN_INVALID_ARGUMENT, 'not delete yappo');
 ($id, $added) = $pat->add('yappo', 'k');
 is($id, 3);
 is($added, 1);
@@ -71,9 +72,9 @@ is($added, 1);
 is($id, 3);
 is($value, 'k');
 
-ok($pat->close, 'close');
+is($pat->close, GRN_SUCCESS, 'close');
 
-ok($pat->remove($tmp_name), 'remove');
+is($pat->remove($tmp_name), GRN_SUCCESS, 'remove');
 ok(!-f $tmp_name, 'removed tmp file');
 
 
