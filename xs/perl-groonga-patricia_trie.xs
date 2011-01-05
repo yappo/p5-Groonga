@@ -62,6 +62,19 @@ close(PerlGroonga_PatriciaTrie *self)
     OUTPUT:
         RETVAL
 
+int
+remove(PerlGroonga_PatriciaTrie *self, SV *path)
+    CODE:
+        const char *path_c = path==&PL_sv_undef ? NULL : SvPV_nolen(path);
+        grn_rc rc;
+        if (self->pat != NULL) {
+            croak("Cannot create context. please close this context.");
+        }
+        rc = grn_pat_remove(self->ctx, path_c);
+        RETVAL = rc ? 0 : 1;
+    OUTPUT:
+        RETVAL
+
 void
 add(PerlGroonga_PatriciaTrie *self, SV *key, SV *value)
     PPCODE:

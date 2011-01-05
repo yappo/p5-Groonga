@@ -43,5 +43,10 @@ ok($pat->close, 'close');
 ok(!$pat->create($tmp_name), 'not create');
 ok($pat->open($tmp_name), 'open');
 
+ok($pat->close, 'close');
+
+ok($pat->remove($tmp_name), 'remove');
+ok(!-f $tmp_name, 'removed tmp file');
+
 
 done_testing;
