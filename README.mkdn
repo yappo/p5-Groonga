@@ -26,6 +26,8 @@ Kazuhiro Osawa <yappo {at} shibuya {dot} pl>
 
 # SEE ALSO
 
+[http://groonga.org/](http://groonga.org/)
+
 # LICENSE
 
 This library is free software; you can redistribute it and/or modify
