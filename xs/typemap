@@ -1,11 +1,15 @@
 TYPEMAP
 
+PerlGroonga_DB *  T_PTROBJ_MG
+
 GRN_API grn_rc            T_IV
 PerlGroonga_PatriciaTrie* T_PERLGROONGA_PATRICIATRIE
 
 
-
 INPUT
+
+T_PTROBJ_MG
+    $var = ($type)xs_object_magic_get_struct_rv_pretty(aTHX_ $arg, \"$var\");
 
 T_PERLGROONGA_PATRICIATRIE
     MAGIC *mg;
@@ -16,7 +20,6 @@ T_PERLGROONGA_PATRICIATRIE
             $var = (PerlGroonga_PatriciaTrie *) mg->mg_ptr;
         }
     }
-
     if ($var == NULL)
         croak(\"Invalid Groonga::PatriciaTrie object (perhaps you've already freed it?)\");
 

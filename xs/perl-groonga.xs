@@ -12,12 +12,14 @@ PerlGroonga_Call_Boot (pTHX_ XSPROTO(subaddr), CV *cv, SV **mark)
 }
 
 EXTERN_C XS(boot_Groonga__PatriciaTrie);
+EXTERN_C XS(boot_Groonga__DB);
 
 MODULE = Groonga    PACKAGE = Groonga  PREFIX = PerlGroonga_
 
 BOOT:
     grn_init();
     PerlGroonga_Call_Boot(aTHX_ boot_Groonga__PatriciaTrie, cv, mark);
+    PerlGroonga_Call_Boot(aTHX_ boot_Groonga__DB, cv, mark);
 
 void
 get_version(void)

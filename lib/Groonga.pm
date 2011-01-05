@@ -3,6 +3,7 @@ use strict;
 use warnings;
 our $VERSION = '0.01';
 
+use XS::Object::Magic; 
 use XSLoader;
 XSLoader::load(__PACKAGE__);
 

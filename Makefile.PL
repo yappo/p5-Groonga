@@ -5,7 +5,7 @@ readme_from 'lib/Groonga.pm';
 readme_markdown_from 'lib/Groonga.pm';
 githubmeta;
 
-# requires '';
+requires 'XS::Object::Magic';
 
 use_ppport;
 use_xshelper;

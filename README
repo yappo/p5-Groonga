@@ -7,6 +7,13 @@ SYNOPSIS
 DESCRIPTION
     Groonga is
 
+METHODS
+    my $version = Groonga->get_version() : Str
+        Get the version number of groonga library.
+
+    my $package = Groonga->get_package() : Str
+        Get the package name of groonga library.
+
 AUTHOR
     Kazuhiro Osawa <yappo {at} shibuya {dot} pl>
 

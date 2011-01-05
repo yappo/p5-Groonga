@@ -11,4 +11,9 @@ typedef struct {
   grn_ctx         *grn_ctx;
 } PerlGroonga_PatriciaTrie;
 
+typedef struct {
+  grn_ctx         *ctx;
+  grn_obj         *db;
+} PerlGroonga_DB;
+
 #endif /* __PERL_GROONGA_H__ */
