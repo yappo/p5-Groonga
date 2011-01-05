@@ -16,3 +16,4 @@ xs/perl-groonga-patricia_trie.c
 xs/perl-groonga.c
 xshelper.h
 xs/perl-groonga-db.c
+xs/perl-groonga-table.c

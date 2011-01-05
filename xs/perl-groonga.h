@@ -7,6 +7,11 @@
 #include <groonga.h>
 
 typedef struct {
+  GRN_API grn_obj *ctx;
+  grn_ctx         *grn_ctx;
+} PerlGroonga_Table;
+
+typedef struct {
   GRN_API grn_pat *ctx;
   grn_ctx         *grn_ctx;
 } PerlGroonga_PatriciaTrie;
