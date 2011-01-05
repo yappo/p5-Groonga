@@ -144,6 +144,24 @@ get(PerlGroonga_PatriciaTrie *self, SV *key)
                 break;
         }
 
+int
+delete(PerlGroonga_PatriciaTrie *self, SV *key)
+    CODE:
+        const char *key_c;
+        STRLEN key_size;
+        grn_rc rc;
+
+        if (key == &PL_sv_undef) {
+            croak("key invalid");
+        } else {
+            key_c = SvPV(key, key_size);
+        }
+
+        rc = grn_pat_delete(self->ctx, self->pat, key_c, key_size, NULL);
+        RETVAL = rc ? 0 : 1;
+    OUTPUT:
+        RETVAL
+
 void
 DESTROY(PerlGroonga_PatriciaTrie *self)
     CODE:

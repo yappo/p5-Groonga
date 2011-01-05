@@ -61,6 +61,14 @@ is($value, 'bye');
 is($id, 2);
 is($value, 'san');
 
+ok($pat->delete('yappo'), 'delete yappo');
+ok(!$pat->delete('yappo'), 'not delete yappo');
+($id, $added) = $pat->add('yappo', 'k');
+is($id, 3);
+is($added, 1);
+($value, $id) = $pat->get('yappo');
+is($id, 3);
+is($value, 'k');
 
 ok($pat->close, 'close');
 
