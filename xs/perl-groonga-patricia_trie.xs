@@ -134,7 +134,8 @@ get(PerlGroonga_PatriciaTrie *self, SV *key)
 void
 DESTROY(PerlGroonga_PatriciaTrie *self)
     CODE:
-        grn_pat_close(self->ctx, self->pat);
+        if (self->pat != NULL)
+            grn_pat_close(self->ctx, self->pat);
         if (grn_ctx_fin(self->ctx)) {
             croak("Cannot finalize context");
         }
