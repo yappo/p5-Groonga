@@ -12,8 +12,8 @@ typedef struct {
 } PerlGroonga_Table;
 
 typedef struct {
-  grn_pat *ctx;
-  grn_ctx         *grn_ctx;
+  grn_ctx         *ctx;
+  grn_pat         *pat;
 } PerlGroonga_PatriciaTrie;
 
 typedef struct {

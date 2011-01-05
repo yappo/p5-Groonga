@@ -5,9 +5,9 @@ grn_obj_flags             T_IV
 grn_rc            T_IV
 grn_id            T_IV
 PerlGroonga_Table*        T_PERLGROONGA_TABLE
+PerlGroonga_PatriciaTrie* T_PTROBJ_MG
 
 grn_rc            T_IV
-PerlGroonga_PatriciaTrie* T_PERLGROONGA_PATRICIATRIE
 
 
 INPUT
