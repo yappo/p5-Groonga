@@ -30,16 +30,22 @@ create (PerlGroonga_Table *self, SV *name, SV *path = NULL, grn_obj_flags flags 
         grn_obj *key_type = NULL, *value_type = NULL;
         const char *name_c;
         STRLEN name_size;
+        grn_obj *db;
 
-        warn("HOGE\n");
+        db = grn_db_open(self->ctx, "./db/test");
+        if (!db) {
+            db = grn_db_create(self->ctx, "./db/test", NULL);
+        }
+
+        warn("HOGE: %d\n", (int) db);
         name_c = SvPV(name, name_size);
         warn("W: %s\n", name_c);
 
         if (1) { // XXX: for DEBUG
             path  = NULL;
-            flags = GRN_OBJ_TABLE_PAT_KEY;
-            key_type = NULL;
-            value_type = NULL;
+            flags = GRN_OBJ_TABLE_HASH_KEY | GRN_OBJ_PERSISTENT;
+            key_type = grn_ctx_at(self->ctx, GRN_DB_SHORT_TEXT);
+            value_type = grn_type_create(self->ctx, "<value_type>", 12, 0, 100);
             /*
             key_type = GRN_TABLE_HASH_KEY;	//GRN_TABLE_HASH_KEY;//grn_ctx_at(grn_ctx, GRN_DB_SHORT_TEXT);
             flags  = GRN_OBJ_TABLE_PAT_KEY;
