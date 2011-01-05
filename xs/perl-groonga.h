@@ -7,8 +7,8 @@
 #include <groonga.h>
 
 typedef struct {
-  GRN_API grn_pat *ctx;
-  grn_ctx         *grn_ctx;
+  grn_pat *ctx;
+  grn_ctx *grn_ctx;
 } PerlGroonga_PatriciaTrie;
 
 #endif /* __PERL_GROONGA_H__ */

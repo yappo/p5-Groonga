@@ -1,6 +1,6 @@
 TYPEMAP
 
-GRN_API grn_rc            T_IV
+grn_rc            T_IV
 PerlGroonga_PatriciaTrie* T_PERLGROONGA_PATRICIATRIE
 
 
