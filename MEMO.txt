@@ -1,0 +1,9 @@
+wget http://groonga.org/files/groonga/groonga-1.0.6.tar.gz
+tar zxvf groonga-1.0.6.tar.gz
+cd groonga-1.0.6
+./configure --prefix ~/local/groonga-1.0.6 --with-zlib
+make
+make install
+
+export PKG_CONFIG_PATH=$HOME/groonga-1.0.6/lib/pkgconfig:$PKG_CONFIG_PATH
+export PATH=$HOME/groonga-1.0.6/bin:$PATH
