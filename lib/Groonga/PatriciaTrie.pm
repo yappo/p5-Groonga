@@ -34,7 +34,7 @@ Groonga::PatriciaTrie - Groonga patricia operator
       die 'remove error';
   }
 
-useing scan method
+using scan method
 
   my $path = '/for/bar/baz.db';
   my $pat = Groonga::PatriciaTrie->new;
@@ -91,7 +91,7 @@ Delete a key.
 =item $pat->scan($text, $callback) : void
 
 Retrieves a $text from the Groonga patricia dict.
-moust set flags GRN_OBJ_KEY_VAR_SIZE the create method.
+must set flags GRN_OBJ_KEY_VAR_SIZE the create method.
 
   $pat->create($path, $key_size, $value_size, GRN_OBJ_KEY_VAR_SIZE) or die 'Groonga::PatriciaTrie create error';
 
