@@ -35,3 +35,7 @@ get_package(void)
         const char *package = grn_get_package();
         mXPUSHp(package, strlen(package));
 
+
+MODULE = Groonga    PACKAGE = Groonga::Constants
+
+INCLUDE: const-xs.inc

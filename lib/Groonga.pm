@@ -42,6 +42,8 @@ Kazuhiro Osawa E<lt>yappo {at} shibuya {dot} plE<gt>
 
 =head1 SEE ALSO
 
+L<http://groonga.org/>
+
 =head1 LICENSE
 
 This library is free software; you can redistribute it and/or modify
