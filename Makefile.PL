@@ -21,6 +21,7 @@ system("pkg-config --exists groonga")==0
 tests 't/*.t';
 author_tests 'xt';
 
+build_requires 'File::Temp';
 build_requires 'Test::More';
 auto_set_repository;
 makemaker_args(
